@@ -147,13 +147,53 @@ func TestGetters(t *testing.T) {
 }
 
 func ExampleNewPerson() {
-	person, _ := NewPerson(4800, "Kael", 26)
-	fmt.Println(person)
+	p, _ := NewPerson(4800, "Kael", 26)
+	fmt.Println(p)
 	// Output: &{4800 Kael 26}
+}
+
+func ExamplePerson_SetWage() {
+	p, _ := NewPerson(4800, "Kael", 26)
+	p.SetWage(5200)
+	fmt.Println(p.Wage())
+	// Output: 5200
+}
+
+func ExamplePerson_SetName() {
+	p, _ := NewPerson(4800, "Kael", 26)
+	p.SetName("Mikael")
+	fmt.Println(p.Name())
+}
+
+func ExamplePerson_SetAge() {
+	p, _ := NewPerson(4800, "Kael", 26)
+	p.SetAge(27)
+	fmt.Println(p.Age())
 }
 
 func BenchmarkNewPerson(b *testing.B) {
 	for b.Loop() {
 		NewPerson(4800, "Kael", 26)
+	}
+}
+
+func BenchmarkPerson_SetWage(b *testing.B) {
+	p, _ := NewPerson(4800, "Kael", 26)
+	for b.Loop() {
+		p.SetWage(5200)
+	}
+}
+
+func BenchmarkPerson_SetName(b *testing.B) {
+	p, _ := NewPerson(4800, "Kael", 26)
+	for b.Loop() {
+		p.SetName("Mikael")
+	}
+}
+
+func BenchmarkPerson_SetAge(b *testing.B) {
+	p, _ := NewPerson(4800, "Kael", 26)
+	for b.Loop() {
+		p.SetAge(27)
 	}
 }

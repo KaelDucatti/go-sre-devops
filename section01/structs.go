@@ -26,9 +26,9 @@ func NewPerson(wage float32, name string, age int) (*Person, error) {
 	}, nil
 }
 
-func (p *Person) Wage() float32 { return p.wage }
-func (p *Person) Name() string { return p.name }
-func (p *Person) Age() int { return p.age }
+func (p *Person) GetWage() float32 { return p.wage }
+func (p *Person) GetName() string { return p.name }
+func (p *Person) GetAge() int { return p.age }
 
 func (p *Person) SetWage(wage float32) error {
 	if err := validateWage(wage); err != nil {
