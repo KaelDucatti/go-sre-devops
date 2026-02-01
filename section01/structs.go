@@ -3,9 +3,9 @@ package section01
 import "errors"
 
 type Person struct {
-	wage	float32
-	name	string
-	age		int
+	wage float32
+	name string
+	age  int
 }
 
 func NewPerson(wage float32, name string, age int) (*Person, error) {
@@ -22,13 +22,13 @@ func NewPerson(wage float32, name string, age int) (*Person, error) {
 	return &Person{
 		wage: wage,
 		name: name,
-		age: age,
+		age:  age,
 	}, nil
 }
 
 func (p *Person) GetWage() float32 { return p.wage }
-func (p *Person) GetName() string { return p.name }
-func (p *Person) GetAge() int { return p.age }
+func (p *Person) GetName() string  { return p.name }
+func (p *Person) GetAge() int      { return p.age }
 
 func (p *Person) SetWage(wage float32) error {
 	if err := validateWage(wage); err != nil {

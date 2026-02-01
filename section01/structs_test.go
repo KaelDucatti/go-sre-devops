@@ -8,16 +8,16 @@ import (
 )
 
 func TestNewPerson(t *testing.T) {
-	t.Run("Success Cases", func (t *testing.T) {
+	t.Run("Success Cases", func(t *testing.T) {
 		t.Run("should return Person instance", func(t *testing.T) {
 			require := require.New(t)
 
 			p, err := NewPerson(4800, "Kael", 26)
 
 			require.NoError(err)
-			require.Equal(float32(4800), p.Wage())
-			require.Equal("Kael", p.Name())
-			require.Equal(26, p.Age())
+			require.Equal(float32(4800), p.GetWage())
+			require.Equal("Kael", p.GetName())
+			require.Equal(26, p.GetAge())
 		})
 	})
 	t.Run("Validation Errors", func(t *testing.T) {
@@ -41,10 +41,10 @@ func TestNewPerson(t *testing.T) {
 			require := require.New(t)
 
 			testCases := []struct {
-				testName	string
-				wage		float32
-				name		string
-				age			int
+				testName string
+				wage     float32
+				name     string
+				age      int
 			}{
 				{"age is negative", 4800, "Kael", -1},
 				{"age is zero", 4800, "Kael", -0},
@@ -67,20 +67,20 @@ func TestSetters(t *testing.T) {
 		t.Run("should update wage and return nil", func(t *testing.T) {
 			require := require.New(t)
 			p, _ := NewPerson(4800, "Kael", 26)
-			
+
 			err := p.SetWage(5200)
 
 			require.NoError(err)
-			require.Equal(float32(5200), p.Wage())
+			require.Equal(float32(5200), p.GetWage())
 		})
 		t.Run("should update name and return nil", func(t *testing.T) {
 			require := require.New(t)
 			p, _ := NewPerson(4800, "Kael", 26)
-			
+
 			err := p.SetName("Mikael")
-	
+
 			require.NoError(err)
-			require.Equal("Mikael", p.Name())
+			require.Equal("Mikael", p.GetName())
 		})
 		t.Run("should update age and return nil", func(t *testing.T) {
 			require := require.New(t)
@@ -89,7 +89,7 @@ func TestSetters(t *testing.T) {
 			err := p.SetAge(27)
 
 			require.NoError(err)
-			require.Equal(int(27), p.Age())
+			require.Equal(int(27), p.GetAge())
 		})
 	})
 	t.Run("Error Validation", func(t *testing.T) {
@@ -101,7 +101,7 @@ func TestSetters(t *testing.T) {
 
 			require.Error(err)
 			require.EqualError(err, "Wage cannot be less than 0")
-			require.Equal(float32(4800), p.Wage())
+			require.Equal(float32(4800), p.GetWage())
 		})
 		t.Run("should return name error", func(t *testing.T) {
 			require := require.New(t)
@@ -111,15 +111,15 @@ func TestSetters(t *testing.T) {
 
 			require.Error(err)
 			require.EqualError(err, "Name cannot be void")
-			require.Equal("Kael", p.Name())
+			require.Equal("Kael", p.GetName())
 		})
 		t.Run("should return age error", func(t *testing.T) {
 			require := require.New(t)
 			p, _ := NewPerson(4800, "Kael", 26)
 
 			testCases := []struct {
-				testName 	string
-				Age			int
+				testName string
+				Age      int
 			}{
 				{"age is zero", 0},
 				{"age is negative", -1},
@@ -130,7 +130,7 @@ func TestSetters(t *testing.T) {
 					err := p.SetAge(test.Age)
 					require.Error(err)
 					require.EqualError(err, "Age must be greater than 0")
-					require.Equal(int(26), p.Age())
+					require.Equal(int(26), p.GetAge())
 				})
 			}
 		})
@@ -141,9 +141,9 @@ func TestGetters(t *testing.T) {
 	require := require.New(t)
 	p, _ := NewPerson(4800, "Kael", 26)
 
-	require.Equal(p.Wage(), float32(4800))
-	require.Equal(p.Name(), "Kael")
-	require.Equal(p.Age(), 26)
+	require.Equal(p.GetWage(), float32(4800))
+	require.Equal(p.GetName(), "Kael")
+	require.Equal(p.GetAge(), 26)
 }
 
 func ExampleNewPerson() {
@@ -155,20 +155,20 @@ func ExampleNewPerson() {
 func ExamplePerson_SetWage() {
 	p, _ := NewPerson(4800, "Kael", 26)
 	p.SetWage(5200)
-	fmt.Println(p.Wage())
+	fmt.Println(p.GetWage())
 	// Output: 5200
 }
 
 func ExamplePerson_SetName() {
 	p, _ := NewPerson(4800, "Kael", 26)
 	p.SetName("Mikael")
-	fmt.Println(p.Name())
+	fmt.Println(p.GetName())
 }
 
 func ExamplePerson_SetAge() {
 	p, _ := NewPerson(4800, "Kael", 26)
 	p.SetAge(27)
-	fmt.Println(p.Age())
+	fmt.Println(p.GetAge())
 }
 
 func BenchmarkNewPerson(b *testing.B) {
